@@ -1,0 +1,14 @@
+.ProfileInfo {
+    margin: 0;
+    position: relative;
+    grid-area: content;
+    border-radius: 10px 10px 10px 10px;
+    color: #fff;
+    z-index: 100;
+}
+
+.ProfileInfo img {
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
