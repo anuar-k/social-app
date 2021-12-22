@@ -3,11 +3,12 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Footer from "./components/Footer/Footer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
-const App = ({state, dispatch}) => {
+const App = () => {
     return (
         <>
             <Router>
@@ -17,19 +18,9 @@ const App = ({state, dispatch}) => {
                         <Navbar/>
                         <div className="app-wrapper-content">
                             <Switch>
-                                <Route path="/profile/" render={() =>
-                                    <Profile
-                                        posts={state.profilePage.posts}
-                                        newPostText={state.profilePage.newPostText}
-                                        dispatch={dispatch}
-                                    />
-                                }/>
-                                <Route path="/dialogs/" render={() =>
-                                    <Dialogs
-                                        dialogs={state.dialogPage.dialogs}
-                                        dispatch={dispatch}
-                                    />
-                                }/>
+                                <Route path="/profile/" render={() => <Profile/>}/>
+                                <Route path="/dialogs/" render={() => <DialogsContainer/>}/>
+                                <Route path="/users/" render={() => <UsersContainer/>}/>
                             </Switch>
                         </div>
                         <Footer/>

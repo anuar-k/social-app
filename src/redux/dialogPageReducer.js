@@ -1,6 +1,9 @@
 const SEND_MESSAGE = "SEND_MESSAGE"
+const UPDATE_MESSAGE = "UPDATE_MESSAGE"
 
 let initialState = {
+    newMessage: '',
+    newMessageIDSeq: 100,
     dialogs: [
         {
             id: 1, name: 'Dimych', messages: [
@@ -362,18 +365,31 @@ let initialState = {
     ],
 }
 const dialogPageReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case UPDATE_MESSAGE:
+            return {
+                ...state,
+                newMessage: action.message
+            }
 
-    if (action.type == SEND_MESSAGE) {
-        let length = state.dialogs[action.dialogId].messages.length - 1;
-        state.dialogs[action.dialogId].messages.push({
-            messageId: ++state.dialogs[action.dialogId].messages[length].messageId,
-            sendUser: action.sendUser,
-            text: action.newMassage,
-            timestamp: ""
-        })
+        case SEND_MESSAGE: {
+            const newState = {...state}
+            newState.dialogs = [...state.dialogs]
+
+            newState.dialogs[action.dialogId].messages.push({
+                messageId: ++state.newMessageIDSeq,
+                sendUser: action.sendUser,
+                text: action.newMassage,
+                timestamp: ""
+            });
+            return newState;
+        }
+        default:
+            return state;
     }
-    return state;
 }
+
+export default dialogPageReducer
 
 export const sendMessageActionCreator = (newMassage, dialogId) => {
     return {
@@ -383,4 +399,10 @@ export const sendMessageActionCreator = (newMassage, dialogId) => {
         sendUser: 1
     }
 }
-export default dialogPageReducer
+export const updateMessageActionCreator = (newMassage) => {
+    return {
+        type: UPDATE_MESSAGE,
+        message: newMassage,
+    }
+}
+

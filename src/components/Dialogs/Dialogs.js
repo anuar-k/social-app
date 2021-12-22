@@ -4,8 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-const Dialogs = ({dialogs, dispatch}) => {
-
+const Dialogs = ({dialogs, onChangeMessage , sendMessage}) => {
     return (
         <Router>
             <div className={classes.Dialogs}>
@@ -13,7 +12,7 @@ const Dialogs = ({dialogs, dispatch}) => {
                     {
                         dialogs.map((item, index) =>
                             <DialogItem
-                                key={index }
+                                key={index}
                                 id={item.id}
                                 name={item.name}
                             />
@@ -22,24 +21,17 @@ const Dialogs = ({dialogs, dispatch}) => {
 
                 <Switch>
                     <Route path={"/dialogs/:id"} render={(props) =>
-                        <>
-                            <Message
-                                key={props.match.params.id }
-                                messages={dialogs[props.match.params.id - 1].messages}
-                                dispatch={dispatch}
-                                dialogId={props.match.params.id}
-                            />
-                        </>
+                        <Message
+                            key={props.match.params.id}
+                            dialogId={props.match.params.id}
+                            messages={dialogs[props.match.params.id - 1].messages}
+                            onChangeMessage={onChangeMessage}
+                            sendMessage={sendMessage}
+                        />
                     }/>
-                    {/*<Route exact path={"/dialogs/"} render={() =>*/}
-                    {/*    <div style={{"margin": "0 auto", 'padding':80, "fontSize": 18, "color": "#fff"}}>*/}
-                    {/*        Выберите один из {dialogs.length} чатов*/}
-                    {/*    </div>*/}
-                    {/*}/>*/}
                 </Switch>
             </div>
         </Router>
     )
 }
-
 export default Dialogs;
