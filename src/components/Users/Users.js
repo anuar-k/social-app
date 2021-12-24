@@ -1,63 +1,70 @@
-import React from "react";
+import * as React from "react";
+import axios from "axios";
+import classes from "./Users.module.css"
 
-const Users = ({users, follow, unfollow, setUsers}) => {
-    if (users.length === 0) {
-        setUsers([
-            {
-                id: 1,
-                followed: false,
-                fullName: 'Dmitriy',
-                status: 'I am a boss',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                followed: true,
-                fullName: 'Sasha',
-                status: 'I am a boss too',
-                location: {city: 'Astana', country: 'Kazakhstan'}
-            },
-            {
-                id: 3,
-                followed: false,
-                fullName: 'Sergei',
-                status: 'I am a boss',
-                location: {city: 'Kiev', country: 'Ukraine'}
-            }
-        ])
+class Users extends React.Component {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUserCount(response.data.totalCount)
+            })
     }
-    const usersList = users.map((user, index) => {
+
+    onChangePage = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    render() {
+        // let styles = [classes.Users]
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+        }
         return (
-            <div key={index + Math.random() + 10}>
-                <span>
-                     <div>
+            <div>
+                <div>
+                    {pages.map(page => {
+                        return (
+                            <span className={this.props.currentPage === page && classes.activePage}
+                                  onClick={(e) => {
+                                      this.onChangePage(page)
+                                  }}
+                                  key={page + Math.random() * 1.2}> {page}
+                            </span>
+                        )
+                    })
+                    }
+                </div>
+                {/*users*/}
+                {
+                    this.props.users.map(user =>
+                        <div key={user.id + Math.random() * 10}>
                             <img
                                 style={{"width": 40}}
-                                src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUhbcBoGQfshS-wrsGVe8egbkz1Ba_aNyHCQ&usqp=CAU"}/>
-                     </div>
-                    <div>
-                        {user.followed ? <button onClick={() => unfollow(user.id)}>unFollow</button> :
-                            <button onClick={() => follow(user.id)}>follow</button>}
-                    </div>
-                </span>
-                <span>
-                                <div>{user.fullName}</div>
-                                <div>{user.status}</div>
-                        </span>
-
-                <span>
-                            <div>{user.location.city}</div>
-                            <div>{user.location.country}</div>
-                        </span>
-
+                                src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUhbcBoGQfshS-wrsGVe8egbkz1Ba_aNyHCQ&usqp=CAU"}
+                            />
+                            <div>  {
+                                user.followed ?
+                                    <button onClick={() => this.props.unfollow(user.id)}>unFollow</button> :
+                                    <button onClick={() => this.props.follow(user.id)}>follow</button>
+                            }
+                            </div>
+                            <div>{user.name}</div>
+                            <div>{user.status}</div>
+                            <div>{"user.location.city"}</div>
+                            <div>{"user.location.country"}</div>
+                        </div>)
+                }
             </div>
         )
-    });
-    return (
-        <>
-            {usersList}
-        </>
-    )
+    }
 }
+
 
 export default Users;
