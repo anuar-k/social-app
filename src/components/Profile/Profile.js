@@ -2,11 +2,11 @@ import React from "react"
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <>
-            <ProfileInfo/>
-            <MyPostContainer/>
+            <ProfileInfo profile={props.profile} />
+            <MyPostContainer {...props}/>
         </>
     )
 }
