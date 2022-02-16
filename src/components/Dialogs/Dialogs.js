@@ -1,10 +1,10 @@
 import React from "react";
 import classes from "./Dialogs.module.css"
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-const Dialogs = ({dialogs, onChangeMessage , sendMessage}) => {
+const Dialogs = ({dialogs, onChangeMessage , sendMessage, isAuth}) => {
     return (
         <Router>
             <div className={classes.Dialogs}>

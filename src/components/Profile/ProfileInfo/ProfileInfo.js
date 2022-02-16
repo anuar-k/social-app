@@ -2,18 +2,26 @@ import React from "react"
 import sea from "../Sea_panorama_-_panoramio.jpg"
 import classes from "./ProfileInfo.module.css"
 import PreLoader from "../../common/PreLoader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <PreLoader/>
     }
+
     return (
         <>
             <div className={classes.ProfileInfo}>
                 <img
                     src={sea}
                     alt="sea"/>
-                <div></div>
+                <div>
+                    {props.profile.fullName}
+                </div>
+                <ProfileStatus {...props} />
+                    {/*{...props.profile} */}
+                    {/*// status={props.profile.status}*/}
+
                 <span>
                     <img style={{"width": 80}} src={props.profile.photos.large} alt=""/>
                 </span>

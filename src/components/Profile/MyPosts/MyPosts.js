@@ -20,7 +20,7 @@ const MyPost = ({posts, newPostText, onPostChange, addPostHandler}) => {
             <div className={classes.MyPosts}>
                 My posts
                 <div>
-                    <textarea name="postBody" id="a" cols="111" rows="2"
+                    <textarea name="postBody" id="a" cols="100" rows="2"
                               onChange={() => onPostChange(newPostElement.current.value)}
                               ref={newPostElement}
                               value={newPostText}
