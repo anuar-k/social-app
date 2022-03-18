@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-const Dialogs = ({dialogs, onChangeMessage , sendMessage, isAuth}) => {
+const Dialogs = ({dialogs, onChangeMessage, sendMessage, isAuth}) => {
     return (
         <Router>
             <div className={classes.Dialogs}>

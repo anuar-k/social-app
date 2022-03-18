@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 
-class ProfileStatus extends Component{
+class ProfileStatus extends Component {
     state = {
         editMode: false,
         status: this.props.status
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.status !== this.props.status){
+        if (prevState.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
@@ -14,36 +15,37 @@ class ProfileStatus extends Component{
     }
 
     ActivateEditMode = () => {
-       this.setState({
-           ...this.state, editMode: !this.state.editMode
-       })
+        this.setState({
+            editMode: true
+        })
     }
 
     deActivateEditMode = () => {
         this.setState({
-            ...this.state, editMode: !this.state.editMode,
+            editMode: false
         })
+
         this.props.updateStatus(this.state.status)
     }
 
-    onChangeHandler = (e) =>{
-        this.setState({
-            ...this.state, status: e.target.value
-        })
+    onChangeHandler = (e) => {
+        this.setState( {
+            status:  e.target.value
+        });
     }
 
     render() {
-        return(
+        return (
             <div>
+                <span>status: </span>
                 {
                     !this.state.editMode
-                    ?   <div>
-                            <span onDoubleClick={()=> this.ActivateEditMode()}> status: {this.props.status  }</span>
-                        </div>
-                    :
-                        <div>
-                            <input onChange={this.onChangeHandler} autoFocus={true} onBlur={()=> this.deActivateEditMode()} type="text" value={this.state.status}/>
-                        </div>
+                        ? <span onDoubleClick={() => this.ActivateEditMode()}> {this.props.status}</span>
+                        :
+                        <span>
+                            <input onChange={this.onChangeHandler} autoFocus={true}
+                                   onBlur={() => this.deActivateEditMode()} type="text" value={this.state.status}/>
+                        </span>
                 }
             </div>
         )

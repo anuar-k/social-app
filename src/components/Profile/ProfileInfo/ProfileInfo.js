@@ -12,16 +12,9 @@ const ProfileInfo = (props) => {
     return (
         <>
             <div className={classes.ProfileInfo}>
-                <img
-                    src={sea}
-                    alt="sea"/>
-                <div>
-                    {props.profile.fullName}
-                </div>
+                <img src={sea} alt="sea"/> <br/>
+                <span> {props.profile.fullName}</span>
                 <ProfileStatus {...props} />
-                    {/*{...props.profile} */}
-                    {/*// status={props.profile.status}*/}
-
                 <span>
                     <img style={{"width": 80}} src={props.profile.photos.large} alt=""/>
                 </span>

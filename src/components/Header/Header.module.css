@@ -1,7 +1,6 @@
 .Header {
     grid-area: header;
     display: flex;
-
 }
 
 .Header img {
@@ -10,6 +9,7 @@
     margin-top: 10px;
     border-radius: 20px;
 }
+
 .Header a {
     flex: 1;
 }

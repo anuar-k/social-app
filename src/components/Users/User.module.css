@@ -1,0 +1,29 @@
+.User {
+    cursor: pointer;
+    display: flex;
+    border: 1px solid #888888;
+    border-radius: 20px;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px 2px #594b4b;
+    opacity: 10;
+    font-weight: bold;
+}
+
+.User button {
+    cursor: pointer;
+}
+
+.User:hover {
+    border: 2px solid #ffffff;
+    margin: 9px;
+    border-radius: 20px;
+    box-shadow: 7px 4px 4px #575050;
+    transition: .5s;
+}
+
+.User div {
+    padding: 10px;
+}

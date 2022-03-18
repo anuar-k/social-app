@@ -2,10 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     follow,
-    setCurrentPage,
-    setIsFetching,
-    setTotalUserCount,
-    setUsers,
     unFollow,
     toggleFollowingInProgress,
     getUsers
@@ -23,25 +19,23 @@ class UsersAPIComponent extends React.Component {
     }
 
     render() {
-        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        let pages = []
-        for (let i = 1; i <= pageCount; i++) pages.push(i)
+
         return (
             <>
                 {
                     this.props.isFetching ? <PreLoader/> :
-                    <Users
-                        pages={pages}
-                        users={this.props.users}
-                        currentPage={this.props.currentPage}
-                        onChangePage={this.onChangePage}
-                        setIsFetching={this.setIsFetching}
-                        follow={this.props.follow}
-                        unFollow={this.props.unFollow}
-                        isFetching={this.props.isFetching}
-                        followingInProgress={this.props.followingInProgress}
-                        // toggleFollowingInProgress={this.props.toggleFollowingInProgress}
-                    />
+                        <Users
+                            users={this.props.users}
+                            currentPage={this.props.currentPage}
+                            totalUsersCount={this.props.totalUsersCount}
+                            pageSize={this.props.pageSize}
+                            onChangePage={this.onChangePage}
+                            setIsFetching={this.setIsFetching}
+                            follow={this.props.follow}
+                            unFollow={this.props.unFollow}
+                            isFetching={this.props.isFetching}
+                            followingInProgress={this.props.followingInProgress}
+                        />
                 }
             </>
         )
@@ -59,5 +53,4 @@ const mapStateToProps = (state) => {
     }
 }
 export default connect(mapStateToProps,
-    {follow,unFollow, toggleFollowingInProgress, getUsers})(UsersAPIComponent);
-
+    {follow, unFollow, toggleFollowingInProgress, getUsers})(UsersAPIComponent);
