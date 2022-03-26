@@ -1,10 +1,9 @@
-button{
-    }
 .activePage {
     font-weight: bold;
     cursor: pointer;
     color: #5d5656;
 }
-.Paginator{
 
+.Paginator button, span {
+    cursor: pointer
 }

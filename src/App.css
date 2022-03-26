@@ -1,15 +1,13 @@
 .container {
     content: "";
-    margin: 0;
-    padding: 0;
-    width: 1140px;
     margin: 0 auto;
-    background-color: #9b183f;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px 0 10px;
+    width: 1140px;
     background-image: linear-gradient(120deg, #7f72d2 0%, #2ff1d3 100%);
     z-index: 1;
     font-weight: 500;
+    font-family: "Futura";
+    color: #ffffff;
 }
 
 .app-wrapper {
@@ -28,8 +26,6 @@
     padding: 0;
     position: relative;
     grid-area: content;
-    /*background-color: cornflowerblue;*/
-    /*background-color: #147594;*/
     border-radius: 10px 10px 10px 10px;
     border: 2px solid #f2f5f4;
     opacity: 0.7;
@@ -42,7 +38,8 @@
     border-radius: 10px 10px 0 0;
 }
 
-textarea, button {
+textarea, button, input {
     border-radius: 7px;
+    border: 1px solid #ffffff;
     margin: 0 auto;
 }

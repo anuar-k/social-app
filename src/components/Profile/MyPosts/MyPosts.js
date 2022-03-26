@@ -4,6 +4,7 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {required, maxLengthCreator} from "../../../util/validators";
 import {Textarea} from "../../common/FormsControls/FormControls";
+import Button from "../../common/Button/Button";
 
 const maxLength10 = maxLengthCreator(10)
 const AddPostForm = (props) => {
@@ -16,7 +17,7 @@ const AddPostForm = (props) => {
                 validate={[required, maxLength10]}
                 cols="100" rows="2"
             />
-            <button>Добавить</button>
+            <Button>Добавить</Button>
         </form>
     )
 }
@@ -26,13 +27,12 @@ const AddPostFormRedux = reduxForm({form: "post"})(AddPostForm)
 const MyPost = ({posts, newPostText, onPostChange, addPostHandler}) => {
     // const newPostElement = React.createRef();
     const onSubmit = (data) => {
-        console.log(data)
         addPostHandler(data.postBody)
     }
     let postElements = posts.map((item, index) => {
         return (
             <Post
-                key={index}
+                key={index * Math.random()}
                 number={item.id}
                 likeCount={item.likesCount}
                 message={item.message}

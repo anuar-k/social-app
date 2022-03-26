@@ -1,6 +1,7 @@
 import React from "react"
 import classes from "./Header.module.css"
 import {NavLink} from "react-router-dom";
+import Button from "../common/Button/Button";
 
 const Header = (props) => {
     return (
@@ -13,7 +14,8 @@ const Header = (props) => {
                     ? <div>
 
                         {props.login}
-                        <button onClick={() => props.logout()}>logout</button>
+                        <Button onClick={props.logout} > logout</Button>
+                        {/*<button onClick={() => props.logout()}>logout</button>*/}
                     </div>
                     : <NavLink to={"/login"}>Login</NavLink>}
             </header>

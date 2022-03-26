@@ -6,6 +6,8 @@ import {required} from "../../util/validators";
 import {login} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 import classes from "./../common/FormsControls/FormControls.module.css"
+import style from "./Login.module.css"
+import Button from "../common/Button/Button";
 
 const LoginForm = ({handleSubmit, error}) => {
     return (
@@ -34,7 +36,7 @@ const LoginForm = ({handleSubmit, error}) => {
             <div>
                 {error && <span className={classes.error}>{error}</span>}
             </div>
-            <button>Login</button>
+            <Button>Login</Button>
         </form>
     )
 }
@@ -50,7 +52,7 @@ const Login = (props) => {
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
     }
-    return <div>
+    return <div className={style.loginForm}>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>

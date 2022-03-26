@@ -22,9 +22,11 @@ export const Textarea = (props) => {
 
 export const Input = (props) => {
     const {input, meta, ...restProps} = props;
+    const hasError = meta.touched && meta.error
     return (
         <FormControl {...props}>
             <input {...input} {...restProps} />
+            { hasError && <span> {meta.error} < /span>}
         </FormControl>
     )
 }
