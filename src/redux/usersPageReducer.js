@@ -1,7 +1,5 @@
 import {usersAPI} from "../api/api";
 
-// const FOLLOW = "FOLLOW"
-// const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_USER_COUNT = "SET_TOTAL_USER_COUNT"
@@ -26,16 +24,6 @@ const usersPageReducer = (state = initialState, action) => {
                 users: state.users.map(user => user.id === action.userId ? ({...user, followed: !user.followed}) : user)
             }
         }
-        // case FOLLOW:
-        //     return {
-        //         ...state,
-        //         users: state.users.map(user => user.id === action.userId ? ({...user, followed: !user.followed}) : user)
-        //     }
-        // case UNFOLLOW:
-        //     return {
-        //         ...state,
-        //         users: state.users.map(user => user.id === action.userId ? ({...user, followed: !user.followed}) : user)
-        //     }
         case SET_USERS:
             // return {...state, users: [...state.users, ...action.users]}
             return {...state, users: action.users}
@@ -66,8 +54,6 @@ const usersPageReducer = (state = initialState, action) => {
     }
 }
 
-// export const followSuccess = (userId) => ({type: FOLLOW, userId})
-// export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
 export const followUnfollowSuccess = (userId) => ({type: FOLLOW_UNFOLLOW_TOGGLE, userId})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})

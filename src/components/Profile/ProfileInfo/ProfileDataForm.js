@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../common/FormsControls/FormControls";
 import Button from "../../common/Button/Button";
 
-const ProfileDataForm = ({profile, handleSubmit, error}) => {
+const ProfileDataForm = ({profile, handleSubmit, error,onMainPhotoSelected}) => {
     return <form onSubmit={handleSubmit} style={{width: 550}}>
         {error && <span className={classes.error}>{error}</span>}
         <div style={{display: "flex"}}>
@@ -40,6 +40,9 @@ const ProfileDataForm = ({profile, handleSubmit, error}) => {
                     name={"aboutMe"}
                     component={Textarea}
                 />
+                <div>Фото профиля:</div>
+                <input type="file" onChange={onMainPhotoSelected}/>
+
                 <Button>save</Button>
             </div>
             <div style={{marginLeft: 80}}>

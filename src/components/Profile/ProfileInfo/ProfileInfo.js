@@ -35,7 +35,7 @@ const ProfileInfo = (props) => {
                                <img className={classes.userPhoto} src={props.profile.photos.large || userPhoto}
                                     alt="userPhoto"/>
                             {props.isOwner && <span>
-                             <input className={classes.fileInput} type="file" onChange={onMainPhotoSelected}/>
+                             {/*<input className={classes.fileInput} type="file" onChange={onMainPhotoSelected}/>*/}
                             </span>
                             } <br/>
                         </div>
@@ -45,6 +45,7 @@ const ProfileInfo = (props) => {
                                 <ProfileDataReduxForm initialValues={props.profile}
                                                       profile={props.profile}
                                                       onSubmit={onSubmit}
+                                                      onMainPhotoSelected={onMainPhotoSelected}
                                 />
                                 : <ProfileData profile={props.profile}
                                                isOwner={props.isOwner}

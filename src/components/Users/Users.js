@@ -14,7 +14,7 @@ const Users = (props) => {
             />
             <div className={classes.Users}>
                 {props.users.map(user =>
-                    <User user={user}
+                    <User key={user.id} user={user}
                           followingInProgress={props.followingInProgress}
                           unFollow={props.unFollow}
                           follow={props.follow}

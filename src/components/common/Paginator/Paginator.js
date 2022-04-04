@@ -19,8 +19,9 @@ const Paginator = ({currentPage, onChangePage, totalItemsCount, pageSize, portio
             <div style={{display: "flex", justifyContent: "space-around", color: 'white', fontWeight: 'bold'}}>
                 {
                     pages.filter(p => leftPortionPageNumber <= p && p <= rightPortionPageNumber).map(page => {
+                        const style = currentPage === page ? classes.activePage : ""
                         return (
-                            <span className={currentPage === page && classes.activePage}
+                            <span className={style}
                                   onClick={(e) => onChangePage(page)}
                                   key={page + Math.random() * 1.2}> {page}
                 </span>
@@ -34,9 +35,9 @@ const Paginator = ({currentPage, onChangePage, totalItemsCount, pageSize, portio
                 {portionNumber > 1 ? <button onClick={() => setPortionNumber(portionNumber - 1)}> {"<"}</button>
                     : <button disabled> {"<"}</button>
                 }
-                {
-                    portion.map(i => <button onClick={() => setPortionNumber(i)}
-                                             disabled={portionNumber === i}>{i}</button>)
+                {portion.map(i => <button key={i} onClick={() => setPortionNumber(i)}
+                                          disabled={portionNumber === i}>{i}
+                </button>)
                 }
 
                 {portionCount > portionNumber ?

@@ -1,6 +1,5 @@
 .ProfileInfo {
     margin: 0;
-    position: relative;
     grid-area: content;
     border-radius: 10px 10px 10px 10px;
     color: #fff;

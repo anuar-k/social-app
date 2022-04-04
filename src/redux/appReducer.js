@@ -6,14 +6,13 @@ const initialState = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case SET_INITIALIZED: {
             return {
                 ...state, initialized: true
             }
         }
-
         default:
             return state
     }
@@ -21,9 +20,8 @@ const appReducer = (state = initialState, action) => {
 
 const setInitializedSuccess = () => ({type: SET_INITIALIZED});
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch: any) => {
     let promise = dispatch(getAuthUserData())
-    // dispatch()
     Promise.all([promise]).then(()=>{
         dispatch(setInitializedSuccess())
     })
