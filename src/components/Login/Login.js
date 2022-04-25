@@ -9,6 +9,7 @@ import classes from "./../common/FormsControls/FormControls.module.css"
 import style from "./Login.module.css"
 import Button from "../common/Button/Button";
 
+//Redux form
 const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
@@ -49,13 +50,13 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
         </form>
     )
 }
-
 const LoginReduxForm = reduxForm({form: "login"})(LoginForm)
 
+//Login form
 const Login = (props) => {
     const onSubmit = (formData) => {
         const {email, password, rememberMe, captcha} = formData
-        props.login(email, password, rememberMe,captcha)
+        props.login(email, password, rememberMe, captcha)
     }
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>

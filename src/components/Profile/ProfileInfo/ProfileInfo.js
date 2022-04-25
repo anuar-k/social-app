@@ -75,7 +75,7 @@ const ProfileData = ({profile, isOwner, activateEditMode}) => {
                 <br/>
                 <b>Contacts: </b>
                 {Object.keys(profile.contacts)
-                    .filter(key => profile.contacts[key] != null && profile.contacts[key].trim() != "")
+                    .filter(key => profile.contacts[key] !== null && profile.contacts[key].trim() !== "")
                     .map(key =>
                         <Contact key={key + Math.random()}
                                  contactTitle={key}

@@ -7,6 +7,7 @@ const instance = axios.create({
         "API-KEY": "76a9beb6-bd24-44f0-ad24-bc8b6c99ba3c"
     }
 })
+
 export const usersAPI = {
     getUsers(currentPage, pageSize = 2) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
@@ -53,7 +54,7 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(email, password, rememberMe = false, captcha = null   ) {
+    login(email, password, rememberMe = false, captcha = null) {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     logout() {
