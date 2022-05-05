@@ -1,7 +1,15 @@
-import React, {useState} from "react";
-import classes from "./Paginator.module.css";
+import React, {FC, useState} from "react"
+import classes from "./Paginator.module.css"
 
-const Paginator = ({currentPage, onChangePage, totalItemsCount, pageSize, portionSize = 10}) => {
+type Props = {
+    currentPage: number
+    onChangePage: (pageNumber: number) => void
+    totalItemsCount: number
+    pageSize: number
+    portionSize?: number
+}
+
+const Paginator: FC<Props> = ({currentPage, onChangePage, totalItemsCount, pageSize, portionSize = 10}) => {
     const pageCount = Math.ceil(totalItemsCount / pageSize)
     const pages = []
     for (let i = 1; i <= pageCount; i++) pages.push(i)
@@ -31,8 +39,12 @@ const Paginator = ({currentPage, onChangePage, totalItemsCount, pageSize, portio
             </div>
             <br/>
             <div style={{display: "flex"}}>
-                <button onClick={() => setPortionNumber(1)} disabled={portionNumber === 1}>{"<<"}</button>
-                {portionNumber > 1 ? <button onClick={() => setPortionNumber(portionNumber - 1)}> {"<"}</button>
+                <button onClick={() => setPortionNumber(1)}
+                        disabled={portionNumber === 1}>{"<<"}
+                </button>
+                {portionNumber > 1 ?
+                    <button onClick={() => setPortionNumber(portionNumber - 1)}>  {"<"}
+                    </button>
                     : <button disabled> {"<"}</button>
                 }
                 {portion.map(i => <button key={i} onClick={() => setPortionNumber(i)}

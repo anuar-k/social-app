@@ -1,16 +1,17 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form"
+import {PhotosType, PostType, ProfileType} from "../types/types";
 
-const ADD_POST = "ADD_POST"
-const UPDATE_POST = "UPDATE_POST"
-const SET_PROFILE = "SET_PROFILE"
-const SET_STATUS = "SET_STATUS"
-const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS"
-const SAVE_PROFILE_INFO_SUCCESS = "SAVE_PROFILE_INFO_SUCCESS"
+const ADD_POST = "profile/ADD_POST"
+const UPDATE_POST = "profile/UPDATE_POST"
+const SET_PROFILE = "profile/SET_PROFILE"
+const SET_STATUS = "profile/SET_STATUS"
+const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS"
+const SAVE_PROFILE_INFO_SUCCESS = "profile/SAVE_PROFILE_INFO_SUCCESS"
 
-let initialState = {
+const initialState = {
     newPostText: "default text",
-    profile: null,
+    profile: null as ProfileType | null,
     posts: [
         {
             id: 1,
@@ -37,12 +38,13 @@ let initialState = {
             message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis dolorem eaque fuga itaque laborum mollitia, nisi optio quas rerum voluptate. Aut expedita maxime perspiciatis tempore. Aspernatur cum necessitatibus neque sit!\n",
             likesCount: 90
         }
-    ],
+    ] as Array<PostType>,
     index: 10,
-    status: null
-};
+    status: "",
+}
+export type InitialStateType = typeof initialState
 
-const profilePageReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -61,7 +63,7 @@ const profilePageReducer = (state = initialState, action) => {
             return {...state, status: action.status}
         }
         case SAVE_PHOTO_SUCCESS: {
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
         case SAVE_PROFILE_INFO_SUCCESS: {
             return {...state, profile: {...state.profile, ...action.profileInfo}}
@@ -70,41 +72,73 @@ const profilePageReducer = (state = initialState, action) => {
             return state
     }
 }
+type UpdatePostActionCreatorActionType = {
+    type: typeof UPDATE_POST
+    text: string
+}
+export const updatePostActionCreator = (newText: string): UpdatePostActionCreatorActionType => ({
+    type: UPDATE_POST,
+    text: newText
+})
 
-export const updatePostActionCreator = (newText) => ({type: UPDATE_POST, text: newText})
-export const addPostActionCreator = (postBody) => ({type: ADD_POST, postBody})
-export const setProfile = (profile) => ({type: SET_PROFILE, profile})
-export const setStatus = (status) => ({type: SET_STATUS, status})
-export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
-export const saveProfileSuccess = (profileInfo) => ({type: SAVE_PROFILE_INFO_SUCCESS, profileInfo})
+type AddPostActionCreatorActionType = {
+    type: typeof ADD_POST
+    postBody: string
+}
+export const addPostActionCreator = (postBody: string): AddPostActionCreatorActionType => ({type: ADD_POST, postBody})
+
+type SetProfileActionType = {
+    type: typeof SET_PROFILE
+    profile: ProfileType
+}
+export const setProfile = (profile: ProfileType): SetProfileActionType => ({type: SET_PROFILE, profile})
+
+type SetStatusActionType = {
+    type: typeof SET_STATUS
+    status: string
+}
+
+export const setStatus = (status: string): SetStatusActionType => ({type: SET_STATUS, status})
+
+type SavePhotoSuccessActionType = {
+    type: typeof SAVE_PHOTO_SUCCESS
+    photos: PhotosType
+}
+
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType => ({type: SAVE_PHOTO_SUCCESS, photos})
+
+type SaveProfileSuccessActionType = {
+    type: typeof SAVE_PROFILE_INFO_SUCCESS
+    profileInfo: PhotosType
+}
+export const saveProfileSuccess = (profileInfo: string) => ({type: SAVE_PROFILE_INFO_SUCCESS, profileInfo})
 
 //thunk for getProfile
-export const getProfile = (userId) => async (dispatch) => {
+export const getProfile = (userId: number) => async (dispatch: any) => {
     const response = await usersAPI.getProfile(userId);
     dispatch(setProfile(response.data))
 }
 //thunk for getStatus
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
     const response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 }
-
 //thunk for updateStatus
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
-
-export const savePhoto = (file) => async (dispatch) => {
-    const response = await profileAPI.savePhoto(file);
+//thunk for savePhoto
+export const savePhoto = (photo: string) => async (dispatch: any) => {
+    const response = await profileAPI.savePhoto(photo);
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
-
-export const saveProfileInfo = (profileInfo) => async (dispatch, getState) => {
+//thunk for saveProfileInfo
+export const saveProfileInfo = (profileInfo: string) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
     const response = await profileAPI.saveProfileInfo(profileInfo);
     if (response.data.resultCode === 0) {
@@ -115,7 +149,7 @@ export const saveProfileInfo = (profileInfo) => async (dispatch, getState) => {
         // dispatch(stopSubmit("profileInfo"), {
         //     "contacts.facebook": "errr"
         // });
-        dispatch(stopSubmit("profileInfo"),  {_error: "dadadad"});
+        dispatch(stopSubmit("profileInfo"), {_error: "dadadad"});
         return Promise.reject(response.data.messages[0])
         // console.log((response.data.messages[0].split("->")[1]).substring(0, length))
         // dispatch(stopSubmit("profileInfo"), {_error: (response.data.messages[0].split("->")[1]).substring(0, length)})
@@ -125,4 +159,4 @@ export const saveProfileInfo = (profileInfo) => async (dispatch, getState) => {
     }
 }
 
-export default profilePageReducer
+export default profileReducer

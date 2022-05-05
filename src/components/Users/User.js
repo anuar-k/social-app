@@ -7,10 +7,11 @@ const User = ({user, ...props}) => {
     return (
         <div key={user.id + Math.random() * 10} className={classes.User}>
             <div>
-                <div style={{display: "flex", justifyContent: "space-around"}} >
+                <div className={classes.Users}>
                     <NavLink to={"/profile/" + user.id}>
                         {user.photos.small === null
-                            ? <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUhbcBoGQfshS-wrsGVe8egbkz1Ba_aNyHCQ&usqp=CAU"}
+                            ? <img
+                                src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUhbcBoGQfshS-wrsGVe8egbkz1Ba_aNyHCQ&usqp=CAU"}
                             />
                             :
                             <img src={user.photos.small}/>

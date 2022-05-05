@@ -1,12 +1,27 @@
-const SEND_MESSAGE = "SEND_MESSAGE"
-const UPDATE_MESSAGE = "UPDATE_MESSAGE"
+const SEND_MESSAGE = "dialog/SEND_MESSAGE"
+const UPDATE_MESSAGE = "dialog/UPDATE_MESSAGE"
 
-let initialState = {
-    newMessage: '',
-    newMessageIDSeq: 100,
+type MessageType = {
+    messageId: number | null,
+    sendUser: number | null,
+    text: string,
+    timestamp: string
+}
+
+type DialogType = {
+    id: number | null,
+    name: string,
+    messages: Array<MessageType>
+}
+
+const initialState = {
+    newMessage: '' as string,
+    newMessageIDSeq: 100 as number,
     dialogs: [
         {
-            id: 1, name: 'Dimych', messages: [
+            id: 1,
+            name: 'Dimych',
+            messages: [
                 {
                     messageId: 11, sendUser: 1, text: "reprehenderit ", timestamp: ""
                 },
@@ -16,13 +31,13 @@ let initialState = {
                 {
                     messageId: 14,
                     sendUser: 1,
-                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis dolorem eaque fuga itaque laborum mollitia, n",
+                    text: "Lorem ipsum dolor sit amet, consectetur adem eaque fuga itaque laborum mollitia, n",
                     timestamp: ""
                 },
                 {
                     messageId: 12,
                     sendUser: 2,
-                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis dolorem eaque fuga itaque laborum mollitia, n",
+                    text: "Lorem ipsum dolor sit amet,. Corporis dolorem eaque fuga itaque laborum mollitia, n",
                     timestamp: ""
                 },
                 {
@@ -31,10 +46,11 @@ let initialState = {
                     text: "reprehenderit velit vero. Culpa, natus, quis!",
                     timestamp: ""
                 },
-            ]
+            ] as Array<MessageType>
         },
         {
-            id: 2, name: 'Andrey', messages: [
+            id: 2, name: 'Andrey',
+            messages: [
                 {
                     messageId: 21,
                     sendUser: 1,
@@ -68,10 +84,11 @@ let initialState = {
                     text: "reprehenderit velit vero. Culpa, natus, quis!",
                     timestamp: ""
                 },
-            ]
+            ] as Array<MessageType>
         },
         {
-            id: 3, name: 'Sveta', messages: [
+            id: 3, name: 'Sveta',
+            messages: [
                 {
                     messageId: 12,
                     sendUser: 1,
@@ -138,7 +155,7 @@ let initialState = {
                 {
                     messageId: 24, sendUser: 1, text: "s dolorem eaque fuga itaq", timestamp: ""
                 },
-            ]
+            ] as Array<MessageType>
         },
         {
             id: 4,
@@ -165,7 +182,7 @@ let initialState = {
                 {
                     messageId: 24, sendUser: 5, text: "s dolorem eaque fuga itaq", timestamp: ""
                 },
-            ]
+            ] as Array<MessageType>
         },
         {
             id: 5,
@@ -360,18 +377,20 @@ let initialState = {
                     text: "reprehenderit velit vero. Culpa, natus, quis!",
                     timestamp: ""
                 },
-            ]
+            ] as Array<MessageType>
         }
-    ],
+    ] as Array<DialogType>
 }
-const dialogPageReducer = (state = initialState, action) => {
+
+export type InitialStateType = typeof initialState
+
+const dialogReducer = (state = initialState, action: any):InitialStateType => {
     switch (action.type) {
         case UPDATE_MESSAGE:
             return {
                 ...state,
                 newMessage: action.message
             }
-
         case SEND_MESSAGE: {
             const newState = {...state}
             newState.dialogs = [...state.dialogs]
@@ -388,10 +407,13 @@ const dialogPageReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-export default dialogPageReducer
-
-export const sendMessageActionCreator = (newMassage, dialogId) => {
+type sendMessageActionCreatorType = {
+    type: string
+    newMassage: string,
+    dialogId: number,
+    sendUser: 1
+}
+export const sendMessageActionCreator = (newMassage: string, dialogId: number): sendMessageActionCreatorType => {
     return {
         type: SEND_MESSAGE,
         newMassage: newMassage,
@@ -399,9 +421,12 @@ export const sendMessageActionCreator = (newMassage, dialogId) => {
         sendUser: 1
     }
 }
-export const updateMessageActionCreator = (newMassage) => {
+
+export const updateMessageActionCreator = (newMassage: string) => {
     return {
         type: UPDATE_MESSAGE,
         message: newMassage,
     }
 }
+
+export default dialogReducer

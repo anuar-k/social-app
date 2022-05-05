@@ -1,4 +1,6 @@
 .User {
+    margin: 0;
+    padding: 0;
     width: 150px;
     height: 150px;
     font-size: 14px;
@@ -6,7 +8,6 @@
     display: flex;
     border: 1px solid #888888;
     border-radius: 20px;
-
     margin: 10px;
     overflow: hidden;
     box-shadow: 2px 2px 2px 2px #594b4b;
@@ -16,6 +17,8 @@
 
 .User button {
     cursor: pointer;
+    /*min-width: 70px;*/
+    /*font-size: 12px;*/
 }
 
 .User img {
@@ -36,4 +39,11 @@
 .User div {
     padding: 10px;
     overflow: hidden;
+}
+
+.Users {
+    display: flex;
+    margin:0;
+    padding:0;
+    justify-content: space-between;
 }

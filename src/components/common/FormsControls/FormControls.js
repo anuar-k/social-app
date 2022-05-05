@@ -1,7 +1,7 @@
 import React from "react"
 import classes from "./FormControls.module.css"
 
-const FormControl = ({input, meta, ...props}) => {
+export const FormControl = ({input, meta, ...props}) => {
     const hasError = meta.touched && meta.error
     return (
         <div className={classes.Textarea + " " + (hasError && classes.error)}>
